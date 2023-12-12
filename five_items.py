@@ -2,6 +2,7 @@ class Item:
 
     # Initializing a class attributes
     pay_rate = 0.8
+    all = []
 
     # Defining a constructor- a magic method with __ __
     def __init__(self, name: str, price: float, quantity=0):
@@ -15,6 +16,9 @@ class Item:
         self.price = price
         self.quantity = quantity
 
+        # Actions to execute
+        Item.all.append(self)
+
     # Methods inside a class
     def calculate_total_price(self):
         return self.price * self.quantity
@@ -27,17 +31,11 @@ class Item:
 
 
 item1 = Item("iPhone 14", 100, 5)
+item2 = Item("iPhone 15", 100, 5)
+item3 = Item("iPhone 16", 100, 5)
+item4 = Item("iPhone 17", 100, 5)
+item5 = Item("iPhone 18", 100, 5)
+
+print(Item.all)
 
 
-print(Item.__dict__) # Access all attributes from class level
-print(item1.__dict__) # Access all attributes from instance level
-
-item1.apply_discount()
-
-# Searching attribute from class level since it wasn't found in instance level
-print(item1.price)
-
-item2 = Item("iPhone 15", 100, 3)
-item2.pay_rate = 0.7
-item2.apply_discount()
-print(item2.price)
