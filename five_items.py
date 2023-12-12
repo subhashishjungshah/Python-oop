@@ -29,12 +29,19 @@ class Item:
     def apply_discount(self):
         self.price = self.price * self.pay_rate
 
+    # This is a magic-method stands for representing our object-> __str__ vs __repr__
+    def __repr__(self):
+        return f"Item('{self.name}',{self.price},{self.quantity})"
+
 
 item1 = Item("iPhone 14", 100, 5)
-item2 = Item("iPhone 15", 100, 5)
-item3 = Item("iPhone 16", 100, 5)
-item4 = Item("iPhone 17", 100, 5)
-item5 = Item("iPhone 18", 100, 5)
+item2 = Item("iPhone 15", 200, 4)
+item3 = Item("iPhone 16", 300, 3)
+item4 = Item("iPhone 17", 400, 2)
+item5 = Item("iPhone 18", 500, 1)
+
+for instance in Item.all:
+    print(instance.name)
 
 print(Item.all)
 

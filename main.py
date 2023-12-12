@@ -1,7 +1,9 @@
+import csv
 class Item:
 
     # Initializing a class attributes
     pay_rate = 0.8
+    all = []
 
     # Defining a constructor- a magic method with __ __
     def __init__(self, name: str, price: float, quantity=0):
@@ -14,10 +16,21 @@ class Item:
         self.name = name
         self.price = price
         self.quantity = quantity
+        Item.all.append(self)
 
     # Methods inside a class
     def calculate_total_price(self):
         return self.price * self.quantity
+
+    # Demonstration of class method or static method-> use decorator-> cls stands for class itself reference as object
+    @classmethod
+    def instantiate_from_csv(cls):
+        with open('items.csv','r') as f:
+            reader = csv.DictReader(f)
+            items = list(reader)
+
+        for item in items:
+            Item(name=item.get('name'),price=int(item.get('price')),quantity=int(item.get('quantity')))
 
     def get_name(self):
         print(self.name)
@@ -25,19 +38,26 @@ class Item:
     def apply_discount(self):
         self.price = self.price * self.pay_rate
 
+    def __repr__(self):
+        return f"Item('{self.name}',{self.price},{self.quantity})"
 
-item1 = Item("iPhone 14", 100, 5)
 
+# item1 = Item("iPhone 14", 100, 5)
+#
+#
+# print(Item.__dict__) # Access all attributes from class level
+# print(item1.__dict__) # Access all attributes from instance level
 
-print(Item.__dict__) # Access all attributes from class level
-print(item1.__dict__) # Access all attributes from instance level
-
-item1.apply_discount()
+# item1.apply_discount()
 
 # Searching attribute from class level since it wasn't found in instance level
-print(item1.price)
+# print(item1.price)
+#
+# item2 = Item("iPhone 15", 100, 3)
+# item2.pay_rate = 0.7
+# item2.apply_discount()
+# print(item2.price)
 
-item2 = Item("iPhone 15", 100, 3)
-item2.pay_rate = 0.7
-item2.apply_discount()
-print(item2.price)
+Item.instantiate_from_csv()
+print(Item.all)
+
