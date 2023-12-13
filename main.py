@@ -1,4 +1,5 @@
 import csv
+
 class Item:
 
     # Initializing a class attributes
@@ -25,7 +26,7 @@ class Item:
     # Demonstration of class method or static method-> use decorator-> cls stands for class itself reference as object
     @classmethod
     def instantiate_from_csv(cls):
-        with open('items.csv','r') as f:
+        with open('items.csv', 'r') as f:
             reader = csv.DictReader(f)
             items = list(reader)
 
@@ -40,6 +41,16 @@ class Item:
 
     def __repr__(self):
         return f"Item('{self.name}',{self.price},{self.quantity})"
+
+    @staticmethod
+    def is_integer(num):
+        # counting the floats that are point zero
+        if isinstance(num, float):
+            return num.is_integer()
+        elif isinstance(num, int):
+            return True
+        else:
+            return False
 
 
 # item1 = Item("iPhone 14", 100, 5)
@@ -58,6 +69,9 @@ class Item:
 # item2.apply_discount()
 # print(item2.price)
 
-Item.instantiate_from_csv()
-print(Item.all)
+if __name__ == "__main__":
+    Item.instantiate_from_csv()
+    print(Item.is_integer(7.0))
+
+# print(Item.all)
 
