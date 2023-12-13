@@ -14,10 +14,20 @@ class Item:
         assert quantity >= 0, f"Quantity {quantity} is not greater than or equal to zero"
 
         # Assigning class variables
-        self.name = name
+        self.__name = name
         self.price = price
         self.quantity = quantity
         Item.all.append(self)
+
+    # This is a getter for pythons OOP
+    @property
+    def name(self):
+        return self.__name
+
+    # Setting up setter for python's OOP
+    @name.setter
+    def name(self, value):
+        self.__name = value
 
     # Methods inside a class
     def calculate_total_price(self):
@@ -40,7 +50,7 @@ class Item:
         self.price = self.price * self.pay_rate
 
     def __repr__(self):
-        return f"Item('{self.name}',{self.price},{self.quantity})"
+        return f"{self.__class__.__name__}('{self.name}',{self.price},{self.quantity})"
 
     @staticmethod
     def is_integer(num):
@@ -52,6 +62,19 @@ class Item:
         else:
             return False
 
+    # This is a readonly property inside python. We can't modify this value.
+    # @property
+    # def read_only_name(self):
+    #     return self.name
+
+
+
+
+if __name__ == "__main__":
+    Item.instantiate_from_csv()
+    print(Item.is_integer(7.0))
+
+# print(Item.all)
 
 # item1 = Item("iPhone 14", 100, 5)
 #
@@ -68,10 +91,4 @@ class Item:
 # item2.pay_rate = 0.7
 # item2.apply_discount()
 # print(item2.price)
-
-if __name__ == "__main__":
-    Item.instantiate_from_csv()
-    print(Item.is_integer(7.0))
-
-# print(Item.all)
 

@@ -5,8 +5,6 @@ from main import Item
 
 class Phone(Item):
 
-    all = []
-
     def __init__(self, name: str, price: int, quantity=0, broken_phones=0):
         # Call super function to have access to all attributes and methods
         super().__init__(name, price, quantity)
@@ -17,10 +15,10 @@ class Phone(Item):
 
         self.broken_phones = broken_phones
 
-        Phone.all.append(self)
-
-
 
 phone1 = Phone("Iphone14", 999, 5, 1)
 print(phone1.calculate_total_price())
 phone2 = Phone("Iphone15", 1299, 5, 2)
+
+print(Item.all)
+print(Phone.all)
